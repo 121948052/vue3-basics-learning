@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="app">
+      <input v-model="title"><br>
+      {{ title }}<br>
+      {{ t1 }}<br>
+      {{ t2 }}<br>
+      {{ t3 }}
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script type="text/javascript">
+      const { createApp, ref, unref } = Vue
+      const myUnref = (obj) => {
+        if (Object.prototype.toString.call(obj) === '[object Object]') {
+          return obj.value
+        } else {
+          return obj
+        }
+      }
+      let vm = createApp({
+        setup() {
+          let title = ref('hello Vue3')
+          let t1 = title.value
+          console.log('t1' + t1)
+          let t2 = unref(title)
+          console.log('t2' + t2)
+          let t3 = myUnref(title)
+          console.log('t3' + t3)
+          return { title, t1, t2, t3 }
+        }
+      }).mount('#app')
+    </script>
+  </body>
+</html>

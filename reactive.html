@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="app">
+      username: <input v-model="userInfo.username"><br>
+      password: <input v-model="userInfo.password"><br>
+      {{ userInfo }}
+      name: <input v-model="name"><br>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script type="text/javascript">
+      console.log(Vue)
+      const { createApp, reactive, ref } = Vue
+      let vm = createApp({
+        setup(props) {
+          let userInfo = reactive({
+            username: '账号',
+            password: '密码'
+          })
+          /*
+          reactive自身规则是，只能传入一个对象，非对象无法被赋予响应式的能力
+          */
+          /*
+          ref也是Vue3提供的响应式数据解决方案，ref不是通过代理的方式事项数据响应式的，所以支持传入
+          基本类型的数据，并将其包裹为对象，在setup中return之后会直接将其挂载到Vue的实例上，所以在
+          使用应用中，直接操作该变量即可，但是在setup函数中必须使用对象.value才能获得该变量的实际值
+          */
+          let name = ref('字符串')
+          console.log(name)
+          setTimeout(() => {
+            name.value = '两秒后我变了'
+          }, 2000)
+          return { userInfo, name }
+        }
+      }).mount('#app')
+    </script>
+  </body>
+</html>

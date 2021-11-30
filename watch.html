@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="app">
+      血量{{ blood }}<br>
+      0<input type="range" step="1" v-model="blood">100<br>
+      <hr />
+      法力值{{ mana }}<br>
+      0<input type="range" step="1" v-model="mana">100<br>
+      
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script type="text/javascript">
+      const { createApp, ref, watch } = Vue
+      let vm = createApp({
+        setup() {
+          let blood = ref(100)
+          let mana = ref(100)
+          watch([blood, mana], ([newB, newM], [oldB, oldM]) => {
+            newB < 70 && newM < 70  && alert('血量和法力值都低于70%将触发冰心被动')
+          })
+          return { blood, mana }
+        }
+      }).mount('#app')
+    </script>
+  </body>
+</html>

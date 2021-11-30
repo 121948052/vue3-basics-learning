@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="app">
+      {{ title }}
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script type="text/javascript">
+      console.log(Vue)
+      const { createApp } = Vue
+      /*
+        setup开发方式事采用纯函数的形式开发Vue项目的解决方案 
+        他包含了完整的生态体系和响应式数据对象的支持
+        所以一旦使用了setup就不在需要定义其他Vue过去的对象结构
+        代表我们要使用纯函数的形式进行编程
+      */
+      let vm = createApp({
+        /*
+          一个组件选项，在组件被创建之前，props 被解析之后执行。它是组合式 API 的入口。
+          setup会随着Vue的实例创建自动执行，并且将其内部return回去的对象挂载到vm实例上
+        */
+        setup(props) {
+          let title = 'hello Vue3!'
+          return { title }
+        }
+      }).mount('#app')
+    </script>
+  </body>
+</html>

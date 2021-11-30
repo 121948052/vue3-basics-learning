@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="app">
+      <button v-on:click="handlePlus">+</button>
+      <input type="text" style="width:50px" v-model="count"></input>
+      <button @click="handleSub">-</button>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script type="text/javascript">
+      const { createApp, ref, watch } = Vue
+      let vm = createApp({
+        setup() {
+          let count = ref(0)
+          const handlePlus = () => {
+            count.value++
+            console.log('+')
+          }
+          const handleSub = () => {
+            count.value >= 1 && count.value--
+            console.log('-')
+          }
+          return { count, handlePlus, handleSub }
+        }
+      }).mount('#app')
+    </script>
+  </body>
+</html>

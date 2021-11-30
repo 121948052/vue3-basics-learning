@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="app">
+      username: <input v-model="userInfo.username"><br>
+      password: <input v-model="userInfo.password"><br>
+      {{ userInfo }}<br>
+      <!-- {{username}} -- {{password}} -->
+      {{userInfoRefs}}
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script type="text/javascript">
+      console.log(Vue)
+      const { createApp, reactive, toRef, toRefs } = Vue
+      let vm = createApp({
+        setup(props) {
+          let userInfo = reactive({
+            username: '账号',
+            password: '密码'
+          })
+          // const username = toRef(userInfo, 'username')
+          // const password = toRef(userInfo, 'password')
+          let userInfoRefs = toRefs(userInfo)
+          return { userInfo, userInfoRefs }
+        }
+      }).mount('#app')
+    </script>
+  </body>
+</html>

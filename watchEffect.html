@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="app">
+      <input v-model="title"><br>
+      {{ title }}
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script type="text/javascript">
+      const { createApp, ref, watchEffect } = Vue
+      let vm = createApp({
+        setup() {
+          let title = ref('title初始值')
+          /*
+          为了根据响应式状态自动应用和重新应用副作用，我们可以使用 watchEffect 函数。
+          它立即执行传入的一个函数，同时响应式追踪其依赖，并在其依赖变更时重新运行该函数。
+          */
+
+          // 停止侦听
+          /*
+          当 watchEffect 在组件的 setup() 函数或生命周期钩子被调用时，侦听器会被链接到该组件的生命周期，并在组件卸载时自动停止。
+          在一些情况下，也可以显式调用返回值以停止侦听：
+          const stop = watchEffect(() => {
+            /* ... */
+          // })
+          /*
+          // later
+          stop()
+          */
+
+          // 清除副作用
+          /*
+          有时副作用函数会执行一些异步的副作用，这些响应需要在其失效时清除 (即完成之前状态已改变了) 。所以侦听副作用传入的函数可以
+          接收一个 onInvalidate 函数作入参，用来注册清理失效时的回调。当以下情况发生时，这个失效回调会被触发：
+          > 副作用即将重新执行时
+          > 侦听器被停止 (如果在 setup() 或生命周期钩子函数中使用了 watchEffect，则在组件卸载时)
+          watchEffect(onInvalidate => {
+            const token = performAsyncOperation(id.value)
+            onInvalidate(() => {
+              // id has changed or watcher is stopped.
+              // invalidate previously pending async operation
+              token.cancel()
+            })
+          })
+          */
+          watchEffect(() => {
+            console.log('只执行了一次')
+          })
+          watchEffect(() => {
+            console.log('title值变化就会执行', title.value)
+          })
+          return { title }
+        }
+      }).mount('#app')
+    </script>
+  </body>
+</html>

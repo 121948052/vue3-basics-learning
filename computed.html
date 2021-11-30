@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="app">
+      英雄自身伤害{{ selfDamage }}<br>
+      0<input type="range" step="1" v-model="selfDamage">100<br>
+      <hr />
+      装备加成{{ weaponD }}<br>
+      0<input type="range" step="1" v-model="weaponD">100<br>
+      最终真伤：{{ damage }}
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script type="text/javascript">
+      const { createApp, ref, computed } = Vue
+      let vm = createApp({
+        setup() {
+          let selfDamage = ref(51)
+          let weaponD = ref(0)
+          const damage = computed(() => {
+            console.log(damage)
+            return Number(selfDamage.value) + Number(weaponD.value)
+          })
+          return { selfDamage, weaponD, damage }
+        }
+      }).mount('#app')
+    </script>
+  </body>
+</html>
