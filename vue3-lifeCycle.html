@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta random="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="dom">
+        {{ random }}
+        <button @click="handleDestroy">销毁组件</button><br>
+      </div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script type="text/javascript">
+      const { createApp,
+        onBeforeMount,
+        onMounted,
+        onBeforeUpdate,
+        onUpdated,
+        onBeforeUnmount,
+        onUnmounted,
+        ref
+       } = Vue
+      const app = createApp({
+        beforeCreate() {
+          console.log('beforeCreate')
+        },
+        created() {
+          console.log('created')
+        },
+        setup(){
+          console.log('setup执行')
+          onBeforeMount(() => {
+            console.log('onBeforeMount')
+          })
+          onMounted(() => {
+            console.log('onMounted')
+          })
+          onBeforeUpdate(() => {
+            console.log('onBeforeUpdate')
+          })
+          onUpdated(() => {
+            console.log('onUpdated')
+          })
+          onBeforeUnmount(()=>{
+            console.log('onBeforeUnmount')
+          })
+          onUnmounted(() => {
+            console.log('onUnmounted')
+          })
+  
+          let random = ref('字符串')
+          const destory = () => {
+            app.unmount()
+          }
+          return {random,destory}
+        }
+      })
+      let vm = app.mount('#app')
+    </script>
+  </body>
+</html>

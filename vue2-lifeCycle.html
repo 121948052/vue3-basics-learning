@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="dom">
+        <button v-on:click="handleClick">改变值</button>
+        <button @click="handleDestroy">销毁组件</button><br>
+        {{ random }}
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+      new Vue({
+        data() {
+          return {
+            random: 'Vue2.0生命周期'
+          }
+        },
+        beforeCreate() {
+          console.log('beforeCreate')
+          // 由于当前函数是在data内容没有初始化完成前所以this.random是无法访问到random的值的
+          console.log(this.random)
+        },
+        created() {
+          console.log('created')
+          // 由于当前函数是在data内容已经初始化完成this.random是可以访问到random的值的
+          console.log(this.random)
+        },
+        beforeMount() {
+          console.log('beforeMount')
+          // 当前获取的app标签内部的值表达式是没有被渲染的
+          console.log(document.querySelector('#app'))
+        },
+        //页面渲染完成
+        mounted() {
+          console.log('mounted')
+          // 当前获取的app标签内部的值表达式是渲染完成的
+          console.log(document.querySelector('#app'))
+        },
+        //页面变更前
+        beforeUpdate() {
+          console.log('beforeUpdate')
+        },
+        //页面变更完成
+        updated() {
+          console.log('updated')
+        },
+        //页面销毁前
+        beforeDestroy() {
+          console.log('beforeDestroy')
+        },
+        //页面销毁完成
+        destroyed() {
+          console.log('destroyed')
+        },
+        methods: {
+          handleClick (e) {
+            this.random = Math.random().toFixed(2)
+          },
+          handleDestroy (e) {
+            this.$destroy()
+          }
+        },
+      }).$mount('#app')
+    </script>
+  </body>
+</html>
