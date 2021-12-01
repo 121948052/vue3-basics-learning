@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			let obj = {}
+			/**
+			 * Proxy,在实例化的时候，会对被传入的对象创建一个代理
+			 * 代理是一个抽象的对象，他并没有本体，代理的作用是用来在未来
+			 * 一切的未知事件和场景中通过代理对象来代理obj对象本身的一些行为
+			 * 代理模式有一个约定就是一旦为某个对象创建了代理
+			 * 未来该对象的一切行为都要由代理对象进行操作，具体的结果由代理对象放到原始对象中
+			 */
+			let objProxy = new Proxy(obj,{
+				/**
+				 * 当代理对象的某个属性被赋值的时候会触发set函数执行
+				 * @param {Object} target 代表newProxy时传入的对象本身
+				 * @param {Object} property 代表代理对象被赋值的属性名称
+				 * @param {Object} value 代理对象对应属性被设置的值
+				 */
+				set(target,property,value){
+					console.log(`obj对象的${property}属性，被设置了新值：${value}`)
+					target[property] = value
+				},
+				get(target,property){
+					console.log(`obj对象的${property}属性，被获取了值`)
+					return target[property]
+				}
+			})
+		</script>
+	</body>
+</html>
